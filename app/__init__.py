@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
-import warnings
+import warnings, os
 warnings.filterwarnings('ignore')
 
 # init SQLAlchemy so we can use it later in our models
@@ -11,7 +11,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'ab3d5d350f8c95871563ba7255735a8457682fa79ae8b4774512854230ef4f2fc9962a653f784bdd273499bc10983a615f322ba7f3066fc5b97541ddc621a2b9'
+    app.config['SECRET_KEY'] = os.getenv('APP_SECRET')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
     db.init_app(app)
